@@ -6,4 +6,4 @@ def image_reader(img: Image):
     img_data = list(img.getdata())
 
     for i in img_data:
-        yield i
+        yield str(i)

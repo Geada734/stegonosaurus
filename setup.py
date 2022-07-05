@@ -3,8 +3,8 @@ from setuptools import find_packages, setup
 
 setup(
     name='stegonosaurus',
-    packages=find_packages(include=["stego_functions"]),
-    version='0.1.0',
+    packages=find_packages(include=["stegonosaurus"]),
+    version='0.1.16',
     description='Stegonography utilities',
     author='Geada734',
     license='MIT',
