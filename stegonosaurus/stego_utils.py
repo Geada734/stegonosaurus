@@ -7,3 +7,12 @@ def image_reader(img: Image):
 
     for i in img_data:
         yield str(i)
+
+def validate_image_format(img: Image):
+    '''Validates the file is a multiband PNG image'''
+    if img.format != "PNG":
+        return False
+    elif img.mode != "RGB" and img.mode != "RGBA":
+        return False
+
+    return True

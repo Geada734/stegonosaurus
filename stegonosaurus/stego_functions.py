@@ -17,7 +17,7 @@ def inspect(img: Image) -> str:
     if hasattr(img, "filename"):
         info_string += img.filename
 
-    if(img.mode == "RGB" or img.mode ==  "RGBA"):
+    if su.validate_image_format(img):
         valid = "Yes"
 
     info_string += ("\nFormat: " + img.format + "\nMode:" + img.mode + "\nSize: " +
