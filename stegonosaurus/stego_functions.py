@@ -43,4 +43,31 @@ def blacken(img: Image) -> Image:
         raise se.StegonosaurusIncorrectFormatException("The file must be a multi-band .png image.")
 
     return new_img
-    
+
+def decode(img: Image, mode: str) -> Image:
+    '''Decodes an image with an encoded message.'''
+    new_img = img.copy()
+
+    if su.validate_image_format(img):
+        pix_x = 0
+        pix_y = 0
+        width = img.size[0]
+        height = img.size[1]
+
+        # Iterate the image to look for odd pixels.
+        for pix_x in range(0, width):
+            for pix_y in range(0, height):
+                pix = img.getpixel((pix_x, pix_y))
+
+                if pix[2]%2==1:
+                    # Odd pixels are turned red.
+                    new_img.putpixel((pix_x, pix_y), (255, 0, 0, 255))
+                else:
+                    # If the mode is "B", even pixels are turned black.
+                    if mode.lower()=="b":
+                        new_img.putpixel((pix_x, pix_y), (0, 0, 0, 255))
+
+    else:
+        raise se.StegonosaurusIncorrectFormatException("The file must be a multi-band .png image.")
+
+    return new_img
