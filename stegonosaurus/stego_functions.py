@@ -71,3 +71,39 @@ def decode(img: Image, mode: str) -> Image:
         raise se.StegonosaurusIncorrectFormatException("The file must be a multi-band .png image.")
 
     return new_img
+
+def encode(coded: Image, img: Image) -> Image:
+    '''Encodes the message inside the other image.'''
+    if su.validate_image_format(coded) and su.validate_image_format(img):
+        if su.validate_images_size(coded, img):
+            flat_coded = su.flatten_coded(coded)
+            flat_img = su.flatten_image(img)
+            pix_x = 0
+            pix_y = 0
+            width = flat_coded.size[0]
+            height = flat_coded.size[1]
+
+            # Copy of the original image.
+            new_img = flat_img.copy()
+
+            # Any red pixels on the black image are turned into odd pixels
+            # on the original picture.
+            for pix_x in range(0, width):
+                for pix_y in range(0, height):
+                    if flat_coded.getpixel((pix_x, pix_y))[0]>0:
+                        pix = list(flat_img.getpixel((pix_x, pix_y)))
+                        pix[2] = pix[2] + 1
+                        if len(pix) == 3:
+                            pix.append(255)
+
+                        new_img.putpixel((pix_x, pix_y), tuple(pix))
+
+            return new_img
+        else:
+            raise se.StegonosaurusIncorrectSizeException("The image with the coded message " +
+                                                         "should be smaller than the image " +
+                                                         "where the message will be hidden.")
+    else:
+        raise se.StegonosaurusIncorrectFormatException("Both files must be multi-band .png images.")
+
+    return None
