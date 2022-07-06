@@ -1,6 +1,7 @@
 '''This library runs on PIL'''
 from PIL import Image
 from . import stego_utils as su
+from . import stego_exceptions as se
 
 def inspect(img: Image) -> str:
     '''Returns each individual pixel and additional information
