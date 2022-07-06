@@ -25,3 +25,22 @@ def inspect(img: Image) -> str:
     str(img.width) + "x" + str(img.height) + "\nValid: " + valid)
 
     return info_string
+
+def blacken(img: Image) -> Image:
+    '''Creates an all-black image with the provided image's dimensions.'''
+    new_img = img.copy()
+
+    if su.validate_image_format(img):
+        pix_x = img.size[0]
+        pix_y = img.size[1]
+        width = img.width
+        height = img.height
+
+        for pix_x in range(0, width):
+            for pix_y in range(0, height):
+                new_img.putpixel((pix_x, pix_y), (0, 0, 0, 255))
+    else:
+        raise se.StegonosaurusIncorrectFormatException("The file must be a multi-band .png image.")
+
+    return new_img
+    

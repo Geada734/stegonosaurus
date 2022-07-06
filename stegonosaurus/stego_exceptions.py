@@ -1,6 +1,6 @@
 '''Custom exceptions made for this library'''
 
-class StegonosaurusIncorrectFileFormat(Exception):
+class StegonosaurusIncorrectFormatException(Exception):
     '''Raised when a function receives a file that isn't a .PNG multiband image'''
     def __init__(self, message):
         self.message = message
