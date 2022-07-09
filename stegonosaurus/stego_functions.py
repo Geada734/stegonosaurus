@@ -98,6 +98,9 @@ def encode(coded: Image, img: Image) -> Image:
 
                         new_img.putpixel((pix_x, pix_y), tuple(pix))
 
+            flat_coded.close()
+            flat_img.close()
+
             return new_img
         else:
             raise se.StegonosaurusIncorrectSizeException("The image with the coded message " +
