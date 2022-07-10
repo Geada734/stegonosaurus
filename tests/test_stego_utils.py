@@ -36,10 +36,10 @@ def raw_image_l_png():
     new_image = Image.new(mode ="L", size=(2,2))
     new_image.format = "PNG"
 
-    new_image.putpixel((0,0), 00000000)
-    new_image.putpixel((0,1), 00000000)
-    new_image.putpixel((1,0), 00000000)
-    new_image.putpixel((1,1), 00000000)
+    new_image.putpixel((0,0), 0)
+    new_image.putpixel((0,1), 0)
+    new_image.putpixel((1,0), 0)
+    new_image.putpixel((1,1), 0)
 
     return new_image
 

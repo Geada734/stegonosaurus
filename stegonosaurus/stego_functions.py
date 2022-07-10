@@ -21,7 +21,7 @@ def inspect(img: Image) -> str:
     if su.validate_image_format(img):
         valid = "Yes"
 
-    info_string += ("\nFormat: " + img.format + "\nMode:" + img.mode + "\nSize: " +
+    info_string += ("\nFormat: " + img.format + "\nMode: " + img.mode + "\nSize: " +
     str(img.width) + "x" + str(img.height) + "\nValid: " + valid)
 
     return info_string
