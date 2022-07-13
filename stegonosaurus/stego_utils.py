@@ -2,7 +2,8 @@
 from PIL import Image
 
 def image_reader(img: Image) -> str:
-    '''Generator that reads the whole image to be used in the inspect_image function'''
+    '''Generator that reads the whole image to be used in the
+    inspect_image function'''
     img_data = list(img.getdata())
 
     for i in img_data:
@@ -18,8 +19,8 @@ def validate_image_format(img: Image) -> bool:
     return True
 
 def validate_images_size(coded: Image, img: Image) -> bool:
-    '''Validates the image with the coded message isn't larger than the image used
-    to hide the message.'''
+    '''Validates the image with the coded message isn't larger than the
+    image used to hide the message.'''
     coded_width = coded.size[0]
     coded_height = coded.size[1]
     img_width = img.size[0]
@@ -40,7 +41,8 @@ def flatten_image(img: Image) -> Image:
     # Copy of the original image.
     new_img = img.copy()
 
-    # Iterates over each pixel in the image to make their RGB value even.
+    # Iterates over each pixel in the image to make their RGB value
+    # even.
     for pix_x in range(0, width):
         for pix_y in range(0, height):
             pix = list(img.getpixel((pix_x, pix_y)))
@@ -48,7 +50,8 @@ def flatten_image(img: Image) -> Image:
             green = pix[1]
             blue = pix[2]
 
-            # Since blue is the "B" in "RGB", that's the value we are making even.
+            # Since blue is the "B" in "RGB", that's the value we are
+            # making even.
             if blue%2==1:
                 blue = blue - 1
                 new_img.putpixel((pix_x, pix_y), (red, green, blue, 255))
@@ -65,7 +68,8 @@ def flatten_coded(img: Image) -> Image:
     # Copy of the orginal image.
     new_img = img.copy()
 
-    # Iterates over each pixel to make the image usable by turning them black.
+    # Iterates over each pixel to make the image usable by turning
+    # them black.
     for pix_x in range(0, width):
         for pix_y in range(0, height):
             if img.getpixel((pix_x,pix_y))[0]==0:

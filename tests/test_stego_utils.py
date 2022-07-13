@@ -155,13 +155,15 @@ def raw_coded_larger_rgb_png():
 
 # Image reader tests:
 def test_image_reader(raw_image_rgb_png):
-    '''Tests the image reader, generator used in the inspect function.'''
+    '''Tests the image reader, generator used in the inspect
+    function.'''
     data = []
 
     for i in su.image_reader(raw_image_rgb_png):
         data.append(i)
 
-    assert data == ["(0, 255, 255)", "(0, 255, 255)", "(0, 255, 255)", "(0, 255, 255)"]
+    assert data == ["(0, 255, 255)", "(0, 255, 255)",
+                    "(0, 255, 255)", "(0, 255, 255)"]
 
 # Format validation tests:
 def test_validate_format_png_rgb(raw_image_rgb_png):
@@ -191,19 +193,23 @@ def test_same_size_images(raw_coded_rgb_png, raw_image_rgb_png):
 
 def test_smaller_coded_image(raw_coded_smaller_rgb_png, raw_image_rgb_png):
     '''Test the validation of same size .png RGB images'''
-    assert su.validate_images_size(raw_coded_smaller_rgb_png, raw_image_rgb_png)
+    assert su.validate_images_size(raw_coded_smaller_rgb_png,
+                                   raw_image_rgb_png)
 
 def test_larger_x_coded_image(raw_coded_larger_x_rgb_png, raw_image_rgb_png):
     '''Test the validation of a horizontally smaller .png RGB images'''
-    assert not su.validate_images_size(raw_coded_larger_x_rgb_png, raw_image_rgb_png)
+    assert not su.validate_images_size(raw_coded_larger_x_rgb_png,
+                                       raw_image_rgb_png)
 
 def test_larger_y_coded_image(raw_coded_larger_y_rgb_png, raw_image_rgb_png):
     '''Test the validation of a vertically smaller .png RGB images'''
-    assert not su.validate_images_size(raw_coded_larger_y_rgb_png, raw_image_rgb_png)
+    assert not su.validate_images_size(raw_coded_larger_y_rgb_png,
+                                       raw_image_rgb_png)
 
 def test_larger_coded_image(raw_coded_larger_rgb_png, raw_image_rgb_png):
     '''Test the validation of a smaller .png RGB images'''
-    assert not su.validate_images_size(raw_coded_larger_rgb_png, raw_image_rgb_png)
+    assert not su.validate_images_size(raw_coded_larger_rgb_png,
+                                       raw_image_rgb_png)
 
 # Image flattening tests:
 def test_flatten_rgb_image(raw_image_rgb_png):
@@ -247,4 +253,5 @@ def test_flatten_code_rgba_image(raw_coded_rgba_png):
     for i in su.image_reader(flat_coded):
         data.append(i)
 
-    assert data == ["(255, 0, 0, 255)", "(0, 0, 0, 255)", "(0, 0, 0, 255)", "(0, 0, 0, 255)"]
+    assert data == ["(255, 0, 0, 255)", "(0, 0, 0, 255)",
+                    "(0, 0, 0, 255)", "(0, 0, 0, 255)"]

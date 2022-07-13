@@ -5,7 +5,7 @@ from . import stego_exceptions as se
 
 def inspect(img: Image) -> str:
     '''Returns each individual pixel and additional information
-    on the image input.'''
+        on the image input.'''
     info_string = ""
     valid = "No"
     generator = su.image_reader(img)
@@ -21,13 +21,15 @@ def inspect(img: Image) -> str:
     if su.validate_image_format(img):
         valid = "Yes"
 
-    info_string += ("\nFormat: " + img.format + "\nMode: " + img.mode + "\nSize: " +
-    str(img.width) + "x" + str(img.height) + "\nValid: " + valid)
+    info_string += ("\nFormat: " + img.format + "\nMode: " + img.mode +
+                    "\nSize: " + str(img.width) + "x" + str(img.height) +
+                    "\nValid: " + valid)
 
     return info_string
 
 def blacken(img: Image) -> Image:
-    '''Creates an all-black image with the provided image's dimensions.'''
+    '''Creates an all-black image with the provided image's
+    dimensions.'''
     new_img = img.copy()
 
     if su.validate_image_format(img):
@@ -40,7 +42,9 @@ def blacken(img: Image) -> Image:
             for pix_y in range(0, height):
                 new_img.putpixel((pix_x, pix_y), (0, 0, 0, 255))
     else:
-        raise se.StegonosaurusIncorrectFormatException("The file must be a multi-band .png image.")
+        raise se.StegonosaurusIncorrectFormatException("The file must " +
+                                                       "be a multi-band " +
+                                                       ".png image.")
 
     return new_img
 
@@ -68,13 +72,16 @@ def decode(img: Image, mode: str) -> Image:
                         new_img.putpixel((pix_x, pix_y), (0, 0, 0, 255))
 
     else:
-        raise se.StegonosaurusIncorrectFormatException("The file must be a multi-band .png image.")
+        raise se.StegonosaurusIncorrectFormatException("The file must be a " +
+                                                       "multi-band .png" +
+                                                       "image.")
 
     return new_img
 
 def encode(coded: Image, img: Image) -> Image:
     '''Encodes the message inside the other image.'''
-    if su.validate_image_format(coded) and su.validate_image_format(img):
+    if (su.validate_image_format(coded) and
+        su.validate_image_format(img)):
         if su.validate_images_size(coded, img):
             flat_coded = su.flatten_coded(coded)
             flat_img = su.flatten_image(img)
@@ -86,8 +93,8 @@ def encode(coded: Image, img: Image) -> Image:
             # Copy of the original image.
             new_img = flat_img.copy()
 
-            # Any red pixels on the black image are turned into odd pixels
-            # on the original picture.
+            # Any red pixels on the black image are turned into odd
+            # pixels on the original picture.
             for pix_x in range(0, width):
                 for pix_y in range(0, height):
                     if flat_coded.getpixel((pix_x, pix_y))[0]>0:
@@ -103,10 +110,16 @@ def encode(coded: Image, img: Image) -> Image:
 
             return new_img
         else:
-            raise se.StegonosaurusIncorrectSizeException("The image with the coded message " +
-                                                         "should be smaller than the image " +
-                                                         "where the message will be hidden.")
+            raise se.StegonosaurusIncorrectSizeException("The image with " +
+                                                         "the coded " +
+                                                         "message should " +
+                                                         "be smaller than " +
+                                                         "the image where " +
+                                                         "the message will " +
+                                                         "be hidden.")
     else:
-        raise se.StegonosaurusIncorrectFormatException("Both files must be multi-band .png images.")
+        raise se.StegonosaurusIncorrectFormatException("Both files must be " +
+                                                       "multi-band .png " +
+                                                       "images.")
 
     return None
