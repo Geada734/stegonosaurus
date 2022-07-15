@@ -1,12 +1,12 @@
-'''This library runs on PIL'''
+"""This library runs on PIL"""
 from PIL import Image
 from . import stego_utils as su
 from . import stego_exceptions as se
 
 
 def inspect(img: Image) -> str:
-    '''Returns each individual pixel and additional information
-        on the image input.'''
+    """Returns each individual pixel and additional information
+        on the image input."""
     info_string = ""
     valid = "No"
     generator = su.image_reader(img)
@@ -30,8 +30,8 @@ def inspect(img: Image) -> str:
 
 
 def blacken(img: Image) -> Image:
-    '''Creates an all-black image with the provided image's
-    dimensions.'''
+    """Creates an all-black image with the provided image's
+    dimensions."""
     new_img = img.copy()
 
     if su.validate_image_format(img):
@@ -52,7 +52,7 @@ def blacken(img: Image) -> Image:
 
 
 def decode(img: Image, mode: str) -> Image:
-    '''Decodes an image with an encoded message.'''
+    """Decodes an image with an encoded message."""
     new_img = img.copy()
 
     if su.validate_image_format(img):
@@ -66,12 +66,12 @@ def decode(img: Image, mode: str) -> Image:
             for pix_y in range(0, height):
                 pix = img.getpixel((pix_x, pix_y))
 
-                if pix[2]%2==1:
+                if pix[2] % 2 == 1:
                     # Odd pixels are turned red.
                     new_img.putpixel((pix_x, pix_y), (255, 0, 0, 255))
                 else:
                     # If the mode is "B", even pixels are turned black.
-                    if mode.lower()=="b":
+                    if mode.lower() == "b":
                         new_img.putpixel((pix_x, pix_y), (0, 0, 0, 255))
 
     else:
@@ -83,7 +83,7 @@ def decode(img: Image, mode: str) -> Image:
 
 
 def encode(coded: Image, img: Image) -> Image:
-    '''Encodes the message inside the other image.'''
+    """Encodes the message inside the other image."""
     if (su.validate_image_format(coded) and
         su.validate_image_format(img)):
         if su.validate_images_size(coded, img):
@@ -101,7 +101,7 @@ def encode(coded: Image, img: Image) -> Image:
             # pixels on the original picture.
             for pix_x in range(0, width):
                 for pix_y in range(0, height):
-                    if flat_coded.getpixel((pix_x, pix_y))[0]>0:
+                    if flat_coded.getpixel((pix_x, pix_y))[0] > 0:
                         pix = list(flat_img.getpixel((pix_x, pix_y)))
                         pix[2] = pix[2] + 1
                         if len(pix) == 3:

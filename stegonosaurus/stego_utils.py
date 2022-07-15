@@ -1,10 +1,10 @@
-'''Generic functions module'''
+"""Generic functions module"""
 from PIL import Image
 
 
 def image_reader(img: Image) -> str:
-    '''Generator that reads the whole image to be used in the
-    inspect_image function'''
+    """Generator that reads the whole image to be used in the
+    inspect_image function"""
     img_data = list(img.getdata())
 
     for i in img_data:
@@ -12,7 +12,7 @@ def image_reader(img: Image) -> str:
 
 
 def validate_image_format(img: Image) -> bool:
-    '''Validates the file is a multiband PNG image'''
+    """Validates the file is a multiband PNG image"""
     if img.format != "PNG":
         return False
     elif img.mode != "RGB" and img.mode != "RGBA":
@@ -22,21 +22,21 @@ def validate_image_format(img: Image) -> bool:
 
 
 def validate_images_size(coded: Image, img: Image) -> bool:
-    '''Validates the image with the coded message isn't larger than the
-    image used to hide the message.'''
+    """Validates the image with the coded message isn't larger than the
+    image used to hide the message."""
     coded_width = coded.size[0]
     coded_height = coded.size[1]
     img_width = img.size[0]
     img_height = img.size[1]
 
-    if coded_width>img_width or coded_height>img_height:
+    if coded_width > img_width or coded_height > img_height:
         return False
 
     return True
 
 
 def flatten_image(img: Image) -> Image:
-    '''Makes sure the message can be encoded in the image.'''
+    """Makes sure the message can be encoded in the image."""
     pix_x = 0
     pix_y = 0
     width = img.size[0]
@@ -56,7 +56,7 @@ def flatten_image(img: Image) -> Image:
 
             # Since blue is the "B" in "RGB", that's the value we are
             # making even.
-            if blue%2==1:
+            if blue % 2 == 1:
                 blue = blue - 1
                 new_img.putpixel((pix_x, pix_y), (red, green, blue, 255))
 
@@ -64,7 +64,7 @@ def flatten_image(img: Image) -> Image:
 
 
 def flatten_coded(img: Image) -> Image:
-    '''Makes the image's blacks extra black.'''
+    """Makes the image's blacks extra black."""
     pix_x = 0
     pix_y = 0
     width = img.size[0]
@@ -77,7 +77,7 @@ def flatten_coded(img: Image) -> Image:
     # them black.
     for pix_x in range(0, width):
         for pix_y in range(0, height):
-            if img.getpixel((pix_x,pix_y))[0]==0:
+            if img.getpixel((pix_x, pix_y))[0] == 0:
                 new_img.putpixel((pix_x, pix_y), (0, 0, 0, 255))
 
     return new_img
