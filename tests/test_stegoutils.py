@@ -1,7 +1,7 @@
 """Test the utils for the Stegonosaurus library"""
 import pytest
 from PIL import Image
-from stegonosaurus import stego_utils as su
+from stegonosaurus import stegoutils as su
 
 
 # Sample abstract images used for testing:

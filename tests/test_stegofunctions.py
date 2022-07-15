@@ -1,9 +1,9 @@
 """Test the functions in the Stegonosaurus library."""
 import pytest
 from PIL import Image
-from stegonosaurus import stego_functions as sf
-from stegonosaurus import stego_utils as su
-from stegonosaurus import stego_exceptions as se
+from stegonosaurus import stegofunctions as sf
+from stegonosaurus import stegoutils as su
+from stegonosaurus import stegoexceptions as se
 
 
 # Sample abstract images used for testing:
@@ -219,13 +219,13 @@ def test_black_rgba_valid(raw_image_rgba_png):
 
 def test_black_invalid_rgb_jpeg(raw_image_rgb_jpeg):
     """Tests blackenning of an invalid RGB .jpeg image."""
-    with pytest.raises(se.StegonosaurusIncorrectFormatException):
+    with pytest.raises(se.StegonosaurusIncorrectFormatError):
         sf.blacken(raw_image_rgb_jpeg)
 
 
 def test_black_invalid_l_png(raw_image_l_png):
     """Tests blackenning of an invalid RGB .png image."""
-    with pytest.raises(se.StegonosaurusIncorrectFormatException):
+    with pytest.raises(se.StegonosaurusIncorrectFormatError):
         sf.blacken(raw_image_l_png)
 
 
@@ -366,12 +366,12 @@ def test_decode_valid_rgba_png_ub(raw_coded_rgba_png, raw_image_rgba_png):
 
 def test_decode_invalid_rgb_jpeg(raw_image_rgb_jpeg):
     """Tests decoding an invalid RGB .jpeg image."""
-    with pytest.raises(se.StegonosaurusIncorrectFormatException):
+    with pytest.raises(se.StegonosaurusIncorrectFormatError):
         sf.decode(raw_image_rgb_jpeg, "t")
 
 def test_decode_invalid_l_png(raw_image_l_png):
     """Tests decoding an invalid L .png image."""
-    with pytest.raises(se.StegonosaurusIncorrectFormatException):
+    with pytest.raises(se.StegonosaurusIncorrectFormatError):
         sf.decode(raw_image_l_png, "t")
 
 
@@ -447,7 +447,7 @@ def test_encode_invalid_rgb_coded_jpeg(raw_image_rgb_jpeg, raw_image_rgb_png):
     """Tests encoding of an invalid RGB .jpeg image into a valid RGB
     .png image.
     """
-    with pytest.raises(se.StegonosaurusIncorrectFormatException):
+    with pytest.raises(se.StegonosaurusIncorrectFormatError):
         sf.encode(raw_image_rgb_jpeg, raw_image_rgb_png)
 
 
@@ -455,7 +455,7 @@ def test_encode_invalid_rgb_image_jpeg(raw_coded_rgb_png, raw_image_rgb_jpeg):
     """Tests encoding of a valid RGB .png image into an invalid RGB
     .jpeg image.
     """
-    with pytest.raises(se.StegonosaurusIncorrectFormatException):
+    with pytest.raises(se.StegonosaurusIncorrectFormatError):
         sf.encode(raw_coded_rgb_png, raw_image_rgb_jpeg)
 
 
@@ -463,7 +463,7 @@ def test_encode_invalid_l_coded_png(raw_image_l_png, raw_image_rgb_png):
     """Tests encoding an invalid L .png image into an valid RGB .png
     image.
     """
-    with pytest.raises(se.StegonosaurusIncorrectFormatException):
+    with pytest.raises(se.StegonosaurusIncorrectFormatError):
         sf.encode(raw_image_l_png, raw_image_rgb_png)
 
 
@@ -471,7 +471,7 @@ def test_encode_invalid_l_image_png(raw_coded_rgb_png, raw_image_l_png):
     """Tests encoding an invalid L .png image into an valid RGB .png
     image.
     """
-    with pytest.raises(se.StegonosaurusIncorrectFormatException):
+    with pytest.raises(se.StegonosaurusIncorrectFormatError):
         sf.encode(raw_coded_rgb_png, raw_image_l_png)
 
 
@@ -480,7 +480,7 @@ def test_encode_invalid_rgb_larger_png(raw_coded_larger_rgb_png,
     """Tests encoding an invalid larger RGB .png image into a valid RGB
     .png image.
     """
-    with pytest.raises(se.StegonosaurusIncorrectSizeException):
+    with pytest.raises(se.StegonosaurusIncorrectSizeError):
         sf.encode(raw_coded_larger_rgb_png, raw_image_rgb_png)
 
 
@@ -489,7 +489,7 @@ def test_encode_invalid_rgb_larger_x_png(raw_coded_larger_x_rgb_png,
     """Tests encoding an invalid horizontally larger RGB .png image
     into a valid RGB .png image.
     """
-    with pytest.raises(se.StegonosaurusIncorrectSizeException):
+    with pytest.raises(se.StegonosaurusIncorrectSizeError):
         sf.encode(raw_coded_larger_x_rgb_png, raw_image_rgb_png)
 
 
@@ -498,5 +498,5 @@ def test_encode_invalid_rgb_larger_y_png(raw_coded_larger_y_rgb_png,
     """Tests encoding an invalid vertically larger RGB .png image into
     a valid RGB .png image.
     """
-    with pytest.raises(se.StegonosaurusIncorrectSizeException):
+    with pytest.raises(se.StegonosaurusIncorrectSizeError):
         sf.encode(raw_coded_larger_y_rgb_png, raw_image_rgb_png)

@@ -1,7 +1,7 @@
 """This library runs on PIL"""
 from PIL import Image
-from . import stego_utils as su
-from . import stego_exceptions as se
+from . import stegoutils as su
+from . import stegoexceptions as se
 
 
 def inspect(img: Image) -> str:
@@ -46,7 +46,7 @@ def blacken(img: Image) -> Image:
             for pix_y in range(0, height):
                 new_img.putpixel((pix_x, pix_y), (0, 0, 0, 255))
     else:
-        raise se.StegonosaurusIncorrectFormatException("The file must " +
+        raise se.StegonosaurusIncorrectFormatError("The file must " +
                                                        "be a multi-band " +
                                                        ".png image.")
 
@@ -77,7 +77,7 @@ def decode(img: Image, mode: str) -> Image:
                         new_img.putpixel((pix_x, pix_y), (0, 0, 0, 255))
 
     else:
-        raise se.StegonosaurusIncorrectFormatException("The file must be a " +
+        raise se.StegonosaurusIncorrectFormatError("The file must be a " +
                                                        "multi-band .png" +
                                                        "image.")
 
@@ -116,7 +116,7 @@ def encode(coded: Image, img: Image) -> Image:
 
             return new_img
         else:
-            raise se.StegonosaurusIncorrectSizeException("The image with " +
+            raise se.StegonosaurusIncorrectSizeError("The image with " +
                                                          "the coded " +
                                                          "message should " +
                                                          "be smaller than " +
@@ -124,7 +124,7 @@ def encode(coded: Image, img: Image) -> Image:
                                                          "the message will " +
                                                          "be hidden.")
     else:
-        raise se.StegonosaurusIncorrectFormatException("Both files must be " +
+        raise se.StegonosaurusIncorrectFormatError("Both files must be " +
                                                        "multi-band .png " +
                                                        "images.")
 

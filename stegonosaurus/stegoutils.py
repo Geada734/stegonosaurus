@@ -1,4 +1,6 @@
-"""Generic functions module"""
+"""Generic functions module, left public so the functions can be used
+in any context.
+"""
 from PIL import Image
 
 
