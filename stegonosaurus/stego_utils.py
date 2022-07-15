@@ -4,7 +4,8 @@ from PIL import Image
 
 def image_reader(img: Image) -> str:
     """Generator that reads the whole image to be used in the
-    inspect_image function"""
+    inspect_image function.
+    """
     img_data = list(img.getdata())
 
     for i in img_data:
@@ -12,7 +13,7 @@ def image_reader(img: Image) -> str:
 
 
 def validate_image_format(img: Image) -> bool:
-    """Validates the file is a multiband PNG image"""
+    """Validates the file is a multiband PNG image."""
     if img.format != "PNG":
         return False
     elif img.mode != "RGB" and img.mode != "RGBA":
@@ -23,7 +24,8 @@ def validate_image_format(img: Image) -> bool:
 
 def validate_images_size(coded: Image, img: Image) -> bool:
     """Validates the image with the coded message isn't larger than the
-    image used to hide the message."""
+    image used to hide the message.
+    """
     coded_width = coded.size[0]
     coded_height = coded.size[1]
     img_width = img.size[0]

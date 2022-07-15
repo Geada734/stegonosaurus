@@ -6,7 +6,8 @@ from . import stego_exceptions as se
 
 def inspect(img: Image) -> str:
     """Returns each individual pixel and additional information
-        on the image input."""
+    on the image input.
+    """
     info_string = ""
     valid = "No"
     generator = su.image_reader(img)
@@ -31,7 +32,8 @@ def inspect(img: Image) -> str:
 
 def blacken(img: Image) -> Image:
     """Creates an all-black image with the provided image's
-    dimensions."""
+    dimensions.
+    """
     new_img = img.copy()
 
     if su.validate_image_format(img):

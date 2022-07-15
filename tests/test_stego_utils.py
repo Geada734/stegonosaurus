@@ -7,7 +7,7 @@ from stegonosaurus import stego_utils as su
 # Sample abstract images used for testing:
 @pytest.fixture
 def raw_image_rgb_png():
-    """Creates a raw RGB image used to hide a message in"""
+    """Creates a raw RGB image used to hide a message in."""
     new_image = Image.new(mode="RGB", size=(2, 2))
     new_image.format = "PNG"
 
@@ -21,7 +21,7 @@ def raw_image_rgb_png():
 
 @pytest.fixture
 def raw_image_rgba_png():
-    """Creates a raw RGBA .png image used to hide a message in"""
+    """Creates a raw RGBA .png image used to hide a message in."""
     new_image = Image.new(mode="RGBA", size=(2, 2))
     new_image.format = "PNG"
 
@@ -35,7 +35,7 @@ def raw_image_rgba_png():
 
 @pytest.fixture
 def raw_image_l_png():
-    """Creates a raw RGBA .png image used to hide a message in"""
+    """Creates a raw RGBA .png image used to hide a message in."""
     new_image = Image.new(mode="L", size=(2, 2))
     new_image.format = "PNG"
 
@@ -49,7 +49,7 @@ def raw_image_l_png():
 
 @pytest.fixture
 def raw_image_rgb_jpeg():
-    """Creates a raw RGB .jpeg image used to hide a message in"""
+    """Creates a raw RGB .jpeg image used to hide a message in."""
     new_image = Image.new(mode="RGB", size=(2, 2))
     new_image.format = "JPG"
 
@@ -63,7 +63,7 @@ def raw_image_rgb_jpeg():
 
 @pytest.fixture
 def raw_image_rgba_jpeg():
-    """Creates a raw RGBA .jpeg image used to hide a message in"""
+    """Creates a raw RGBA .jpeg image used to hide a message in."""
     new_image = Image.new(mode="RGBA", size=(2,2))
     new_image.format = "JPG"
 
@@ -77,7 +77,7 @@ def raw_image_rgba_jpeg():
 
 @pytest.fixture
 def raw_coded_rgb_png():
-    """Creates a raw RGB image used to encode a message"""
+    """Creates a raw RGB image used to encode a message."""
     new_image = Image.new(mode="RGB", size=(2, 2))
     new_image.format = "PNG"
 
@@ -91,7 +91,7 @@ def raw_coded_rgb_png():
 
 @pytest.fixture
 def raw_coded_rgba_png():
-    """Creates a raw RGBA image used to encode a message"""
+    """Creates a raw RGBA image used to encode a message."""
     new_image = Image.new(mode="RGBA", size=(2,2))
     new_image.format = "PNG"
 
@@ -105,7 +105,7 @@ def raw_coded_rgba_png():
 
 @pytest.fixture
 def raw_coded_smaller_rgb_png():
-    """Creates a small raw RGB image used to encode a message"""
+    """Creates a small raw RGB image used to encode a message."""
     new_image = Image.new(mode="RGB", size=(2,2))
     new_image.format = "PNG"
 
@@ -116,7 +116,7 @@ def raw_coded_smaller_rgb_png():
 
 @pytest.fixture
 def raw_coded_larger_x_rgb_png():
-    """Creates a raw RGBA image used to encode a message"""
+    """Creates a raw RGBA image used to encode a message."""
     new_image = Image.new(mode="RGBA", size=(3, 2))
     new_image.format = "PNG"
 
@@ -132,7 +132,7 @@ def raw_coded_larger_x_rgb_png():
 
 @pytest.fixture
 def raw_coded_larger_y_rgb_png():
-    """Creates a raw RGBA image used to encode a message"""
+    """Creates a raw RGBA image used to encode a message."""
     new_image = Image.new(mode="RGBA", size=(2, 3))
     new_image.format = "PNG"
 
@@ -148,7 +148,7 @@ def raw_coded_larger_y_rgb_png():
 
 @pytest.fixture
 def raw_coded_larger_rgb_png():
-    """Creates a raw RGBA image used to encode a message"""
+    """Creates a raw RGBA image used to encode a message."""
     new_image = Image.new(mode="RGBA", size=(3, 3))
     new_image.format = "PNG"
 
@@ -168,7 +168,8 @@ def raw_coded_larger_rgb_png():
 # Image reader tests:
 def test_image_reader(raw_image_rgb_png):
     """Tests the image reader, generator used in the inspect
-    function."""
+    function.
+    """
     data = []
 
     for i in su.image_reader(raw_image_rgb_png):
@@ -180,63 +181,63 @@ def test_image_reader(raw_image_rgb_png):
 
 # Format validation tests:
 def test_validate_format_png_rgb(raw_image_rgb_png):
-    """Test the validation of a .png RGB image"""
+    """Test the validation of a .png RGB image."""
     assert su.validate_image_format(raw_image_rgb_png)
 
 
 def test_validate_format_png_rgba(raw_image_rgba_png):
-    """Test the validation of a .png RGB image"""
+    """Test the validation of a .png RGB image."""
     assert su.validate_image_format(raw_image_rgba_png)
 
 
 def test_validate_format_l_rgb(raw_image_l_png):
-    """Test the validation of a .png single-band image"""
+    """Test the validation of a .png single-band image."""
     assert not su.validate_image_format(raw_image_l_png)
 
 
 def test_validate_format_jpeg_rgb(raw_image_rgb_jpeg):
-    """Test the validation of a .png RGB image"""
+    """Test the validation of a .png RGB image."""
     assert not su.validate_image_format(raw_image_rgb_jpeg)
 
 
 def test_validate_format_jpeg_rgba(raw_image_rgba_jpeg):
-    """Test the validation of a .png RGB image"""
+    """Test the validation of a .png RGB image."""
     assert not su.validate_image_format(raw_image_rgba_jpeg)
 
 
 # Size validation tests:
 def test_same_size_images(raw_coded_rgb_png, raw_image_rgb_png):
-    """Test the validation of same size .png RGB images"""
+    """Test the validation of same size .png RGB images."""
     assert su.validate_images_size(raw_coded_rgb_png, raw_image_rgb_png)
 
 
 def test_smaller_coded_image(raw_coded_smaller_rgb_png, raw_image_rgb_png):
-    """Test the validation of same size .png RGB images"""
+    """Test the validation of same size .png RGB images."""
     assert su.validate_images_size(raw_coded_smaller_rgb_png,
                                    raw_image_rgb_png)
 
 
 def test_larger_x_coded_image(raw_coded_larger_x_rgb_png, raw_image_rgb_png):
-    """Test the validation of a horizontally smaller .png RGB images"""
+    """Test the validation of a horizontally smaller .png RGB images."""
     assert not su.validate_images_size(raw_coded_larger_x_rgb_png,
                                        raw_image_rgb_png)
 
 
 def test_larger_y_coded_image(raw_coded_larger_y_rgb_png, raw_image_rgb_png):
-    """Test the validation of a vertically smaller .png RGB images"""
+    """Test the validation of a vertically smaller .png RGB images."""
     assert not su.validate_images_size(raw_coded_larger_y_rgb_png,
                                        raw_image_rgb_png)
 
 
 def test_larger_coded_image(raw_coded_larger_rgb_png, raw_image_rgb_png):
-    """Test the validation of a smaller .png RGB images"""
+    """Test the validation of a smaller .png RGB images."""
     assert not su.validate_images_size(raw_coded_larger_rgb_png,
                                        raw_image_rgb_png)
 
 
 # Image flattening tests:
 def test_flatten_rgb_image(raw_image_rgb_png):
-    """Test the flatenning of an RGBA .png image"""
+    """Test the flatenning of an RGBA .png image."""
     flat_image = su.flatten_image(raw_image_rgb_png)
     data = []
 
@@ -249,7 +250,7 @@ def test_flatten_rgb_image(raw_image_rgb_png):
 
 # Image flattening tests:
 def test_flatten_rgba_image(raw_image_rgba_png):
-    """Test the flatenning of an RGBA .png image"""
+    """Test the flatenning of an RGBA .png image."""
     flat_image = su.flatten_image(raw_image_rgba_png)
     data = []
 
