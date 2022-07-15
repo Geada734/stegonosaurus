@@ -3,6 +3,7 @@ from PIL import Image
 from . import stego_utils as su
 from . import stego_exceptions as se
 
+
 def inspect(img: Image) -> str:
     '''Returns each individual pixel and additional information
         on the image input.'''
@@ -27,6 +28,7 @@ def inspect(img: Image) -> str:
 
     return info_string
 
+
 def blacken(img: Image) -> Image:
     '''Creates an all-black image with the provided image's
     dimensions.'''
@@ -47,6 +49,7 @@ def blacken(img: Image) -> Image:
                                                        ".png image.")
 
     return new_img
+
 
 def decode(img: Image, mode: str) -> Image:
     '''Decodes an image with an encoded message.'''
@@ -77,6 +80,7 @@ def decode(img: Image, mode: str) -> Image:
                                                        "image.")
 
     return new_img
+
 
 def encode(coded: Image, img: Image) -> Image:
     '''Encodes the message inside the other image.'''

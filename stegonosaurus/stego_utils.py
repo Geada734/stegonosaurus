@@ -1,6 +1,7 @@
 '''Generic functions module'''
 from PIL import Image
 
+
 def image_reader(img: Image) -> str:
     '''Generator that reads the whole image to be used in the
     inspect_image function'''
@@ -8,6 +9,7 @@ def image_reader(img: Image) -> str:
 
     for i in img_data:
         yield str(i)
+
 
 def validate_image_format(img: Image) -> bool:
     '''Validates the file is a multiband PNG image'''
@@ -17,6 +19,7 @@ def validate_image_format(img: Image) -> bool:
         return False
 
     return True
+
 
 def validate_images_size(coded: Image, img: Image) -> bool:
     '''Validates the image with the coded message isn't larger than the
@@ -30,6 +33,7 @@ def validate_images_size(coded: Image, img: Image) -> bool:
         return False
 
     return True
+
 
 def flatten_image(img: Image) -> Image:
     '''Makes sure the message can be encoded in the image.'''
@@ -57,6 +61,7 @@ def flatten_image(img: Image) -> Image:
                 new_img.putpixel((pix_x, pix_y), (red, green, blue, 255))
 
     return new_img
+
 
 def flatten_coded(img: Image) -> Image:
     '''Makes the image's blacks extra black.'''
