@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 setup(
     name='stegonosaurus',
     packages=find_packages(include=["stegonosaurus"]),
-    version='0.4.3',
+    version='1.1.0',
     description='Stegonography utilities',
     author='Geada734',
     license='MIT',
