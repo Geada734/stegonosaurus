@@ -28,3 +28,7 @@ Decodes an image with a hidden message. This functions looks for pixels where th
 *StegonosaurusIncorrectFormatError*: Raised when a function receives a file that isn't a .PNG multiband image.
 
 *StegonosaurusIncorrectSizeError*: Raised when the image with the coded message is larger than the image where the message will be hidden.
+
+Ver. 1.1.3:
+
+*StegonosaurusInvalidDecodeModeError*: Raised when an invalid decode mode is provided.
