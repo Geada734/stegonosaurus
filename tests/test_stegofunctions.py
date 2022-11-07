@@ -369,10 +369,35 @@ def test_decode_invalid_rgb_jpeg(raw_image_rgb_jpeg):
     with pytest.raises(se.StegonosaurusIncorrectFormatError):
         sf.decode(raw_image_rgb_jpeg, "t")
 
+
 def test_decode_invalid_l_png(raw_image_l_png):
     """Tests decoding an invalid L .png image."""
     with pytest.raises(se.StegonosaurusIncorrectFormatError):
         sf.decode(raw_image_l_png, "t")
+
+
+def test_decode_valid_rgb_png_invalid_string_mode(raw_coded_rgb_png, raw_image_rgb_png):
+    """Tests decoding on a valid RGB .png image, with lower case
+    transparent mode.
+    """
+    encoded = sf.encode(raw_coded_rgb_png, raw_image_rgb_png)
+    encoded.format = "PNG"
+    encoded.mode = "RGB"
+
+    with pytest.raises(se.StegonosaurusInvalidDecodeModeError):
+        sf.decode(encoded, "CAKE")
+
+
+def test_decode_valid_rgb_png_invalid_nonstring_mode(raw_coded_rgb_png, raw_image_rgb_png):
+    """Tests decoding on a valid RGB .png image, with lower case
+    transparent mode.
+    """
+    encoded = sf.encode(raw_coded_rgb_png, raw_image_rgb_png)
+    encoded.format = "PNG"
+    encoded.mode = "RGB"
+
+    with pytest.raises(se.StegonosaurusInvalidDecodeModeError):
+        sf.decode(encoded, 347)
 
 
 # Image encoding tests:

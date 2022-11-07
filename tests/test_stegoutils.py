@@ -235,6 +235,36 @@ def test_larger_coded_image(raw_coded_larger_rgb_png, raw_image_rgb_png):
                                        raw_image_rgb_png)
 
 
+# Decode mode validation tests:
+def test_validate_decode_mode_lower_t():
+    """Tests validation when the decode mode is t."""
+    assert su.validate_decode_mode("t")
+
+
+def test_validate_decode_mode_lower_b():
+    """Tests validation when the decode mode is b."""
+    assert su.validate_decode_mode("b")
+
+
+def test_validate_decode_mode_upper_t():
+    """Tests validation when the decode mode is t."""
+    assert su.validate_decode_mode("T")
+
+
+def test_validate_decode_mode_upper_b():
+    """Tests validation when the decode mode is b."""
+    assert su.validate_decode_mode("B")
+
+
+def test_validate_decode_mode_invalid_string():
+    """Tests validation when decode mode is not valid."""
+    assert not su.validate_decode_mode("CAKE")
+
+
+def test_validate_decode_mode_nonstring():
+    """Tests validation when decode mode is not a string."""
+    assert not su.validate_decode_mode(3)
+
 # Image flattening tests:
 def test_flatten_rgb_image(raw_image_rgb_png):
     """Test the flatenning of an RGBA .png image."""

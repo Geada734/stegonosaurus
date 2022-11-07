@@ -39,6 +39,17 @@ def validate_images_size(coded: Image, img: Image) -> bool:
     return True
 
 
+def validate_decode_mode(mode: any) -> bool:
+    """Validates that the value provided as decode mode is valid."""
+    if not isinstance(mode, str):
+        return False
+
+    if not mode.lower() == 't' and not mode.lower() == 'b':
+        return False
+
+    return True
+
+
 def flatten_image(img: Image) -> Image:
     """Makes sure the message can be encoded in the image."""
     pix_x = 0
