@@ -29,6 +29,4 @@ Decodes an image with a hidden message. This functions looks for pixels where th
 
 *StegonosaurusIncorrectSizeError*: Raised when the image with the coded message is larger than the image where the message will be hidden.
 
-Ver. 1.1.3:
-
-*StegonosaurusInvalidDecodeModeError*: Raised when an invalid decode mode is provided.
+*StegonosaurusInvalidDecodeModeError* (Ver. 1.1.3): Raised when an invalid decode mode is provided.
