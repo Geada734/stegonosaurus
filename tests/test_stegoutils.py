@@ -35,7 +35,7 @@ def raw_image_rgba_png():
 
 @pytest.fixture
 def raw_image_l_png():
-    """Creates a raw RGBA .png image used to hide a message in."""
+    """Creates a raw single band .png image used to hide a message in."""
     new_image = Image.new(mode="L", size=(2, 2))
     new_image.format = "PNG"
 
@@ -163,6 +163,66 @@ def raw_coded_larger_rgb_png():
     new_image.putpixel((2, 2), (0, 1, 1))
 
     return new_image
+
+
+@pytest.fixture
+def barely_red_pixel():
+    return [55, 0, 0]
+
+
+@pytest.fixture
+def definitely_red_pixel():
+    return [100, 0, 0]
+
+
+@pytest.fixture
+def bright_red_pixel():
+    return [255, 0, 0]
+
+
+@pytest.fixture
+def not_really_red_pixel():
+    return [54, 0,0]
+
+
+@pytest.fixture
+def barely_green_pixel():
+    return [0, 55, 0]
+
+
+@pytest.fixture
+def definitely_green_pixel():
+    return [0, 100, 0]
+
+
+@pytest.fixture
+def bright_green_pixel():
+    return [0, 255, 0]
+
+
+@pytest.fixture
+def not_really_green_pixel():
+    return [0, 54,0]
+
+
+@pytest.fixture
+def barely_blue_pixel():
+    return [0, 0, 55]
+
+
+@pytest.fixture
+def definitely_blue_pixel():
+    return [0, 0, 100]
+
+
+@pytest.fixture
+def bright_blue_pixel():
+    return [0, 0, 255]
+
+
+@pytest.fixture
+def not_really_blue_pixel():
+    return [0, 0, 54]
 
 
 # Image reader tests:
@@ -312,3 +372,34 @@ def test_flatten_code_rgba_image(raw_coded_rgba_png):
 
     assert data == ["(255, 0, 0, 255)", "(0, 0, 0, 255)",
                     "(0, 0, 0, 255)", "(0, 0, 0, 255)"]
+
+
+# Pixel coloring validation tests:
+def test_is_colored_red(barely_red_pixel, definitely_red_pixel, bright_red_pixel, not_really_red_pixel):
+    results = [
+        su.is_colored(barely_red_pixel),
+        su.is_colored(definitely_red_pixel),
+        su.is_colored(bright_red_pixel),
+        su.is_colored(not_really_red_pixel)
+    ]
+    assert results == [True, True, True, False]
+
+
+def test_is_colored_green(barely_green_pixel, definitely_green_pixel, bright_green_pixel, not_really_green_pixel):
+    results = [
+        su.is_colored(barely_green_pixel),
+        su.is_colored(definitely_green_pixel),
+        su.is_colored(bright_green_pixel),
+        su.is_colored(not_really_green_pixel)
+    ]
+    assert results == [True, True, True, False]
+
+
+def test_is_colored_blue(barely_blue_pixel, definitely_blue_pixel, bright_blue_pixel, not_really_blue_pixel):
+    results = [
+        su.is_colored(barely_blue_pixel),
+        su.is_colored(definitely_blue_pixel),
+        su.is_colored(bright_blue_pixel),
+        su.is_colored(not_really_blue_pixel)
+    ]
+    assert results == [True, True, True, False]

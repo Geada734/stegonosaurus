@@ -50,6 +50,15 @@ def validate_decode_mode(mode: any) -> bool:
     return True
 
 
+def is_colored(pix: list[int]) -> bool:
+    pixel_color_threshold = 55
+    for color in pix:
+        if color >= pixel_color_threshold:
+            return True
+
+    return False
+
+
 def flatten_image(img: Image) -> Image:
     """Makes sure the message can be encoded in the image."""
     pix_x = 0
