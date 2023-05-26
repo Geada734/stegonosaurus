@@ -225,6 +225,16 @@ def not_really_blue_pixel():
     return [0, 0, 54]
 
 
+@pytest.fixture
+def soft_black_pixel():
+    return [54, 54, 54]
+
+
+@pytest.fixture
+def hard_black_pixel():
+    return [0, 0, 0]
+
+
 # Image reader tests:
 def test_image_reader(raw_image_rgb_png):
     """Tests the image reader, generator used in the inspect
@@ -403,3 +413,12 @@ def test_is_colored_blue(barely_blue_pixel, definitely_blue_pixel, bright_blue_p
         su.is_colored(not_really_blue_pixel)
     ]
     assert results == [True, True, True, False]
+
+
+def test_is_colored_black(soft_black_pixel, hard_black_pixel):
+    result = [
+        su.is_colored(soft_black_pixel),
+        su.is_colored(hard_black_pixel)
+    ]
+
+    assert result == [False, False]

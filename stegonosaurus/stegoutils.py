@@ -98,10 +98,13 @@ def flatten_coded(img: Image) -> Image:
     new_img = img.copy()
 
     # Iterates over each pixel to make the image usable by turning
-    # them black.
+    # them black, and enhancing the text pixels.
     for pix_x in range(0, width):
         for pix_y in range(0, height):
-            if img.getpixel((pix_x, pix_y))[0] == 0:
+            pixel_colors = list(img.getpixel((pix_x, pix_y)))[:3]
+            if is_colored(pixel_colors):
+                new_img.putpixel((pix_x, pix_y), (255, 0, 0, 255))
+            else:
                 new_img.putpixel((pix_x, pix_y), (0, 0, 0, 255))
 
     return new_img
