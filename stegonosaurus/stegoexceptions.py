@@ -16,6 +16,7 @@ class StegonosaurusIncorrectSizeError(Exception):
         self.message = message
         super().__init__(self.message)
 
+
 class StegonosaurusInvalidDecodeModeError(Exception):
     """Raised when an invalid decode mode is provided."""
     def __init__(self, message):

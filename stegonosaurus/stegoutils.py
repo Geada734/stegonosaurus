@@ -51,6 +51,7 @@ def validate_decode_mode(mode: any) -> bool:
 
 
 def is_colored(pix: list[int]) -> bool:
+    """Checks the color in each pixel to determine the ones that make the message."""
     pixel_color_threshold = 55
     for color in pix:
         if color >= pixel_color_threshold:
@@ -98,7 +99,7 @@ def flatten_coded(img: Image) -> Image:
     new_img = img.copy()
 
     # Iterates over each pixel to make the image usable by turning
-    # them black, and enhancing the text pixels.
+    # them black, and enhancing the message pixels.
     for pix_x in range(0, width):
         for pix_y in range(0, height):
             pixel_colors = list(img.getpixel((pix_x, pix_y)))[:3]

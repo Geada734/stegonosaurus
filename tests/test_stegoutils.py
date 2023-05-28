@@ -200,7 +200,7 @@ def raw_coded_smaller_rgb_png():
 
 @pytest.fixture
 def raw_coded_larger_x_rgb_png():
-    """Creates a raw RGB image used to encode a message."""
+    """Creates a horizontally larger raw RGB image used to encode a message."""
     new_image = Image.new(mode="RGBA", size=(3, 2))
     new_image.format = "PNG"
 
@@ -216,7 +216,7 @@ def raw_coded_larger_x_rgb_png():
 
 @pytest.fixture
 def raw_coded_larger_y_rgb_png():
-    """Creates a raw RGB image used to encode a message."""
+    """Creates a vertically larger raw RGB image used to encode a message."""
     new_image = Image.new(mode="RGBA", size=(2, 3))
     new_image.format = "PNG"
 
@@ -232,7 +232,7 @@ def raw_coded_larger_y_rgb_png():
 
 @pytest.fixture
 def raw_coded_larger_rgb_png():
-    """Creates a raw RGB image used to encode a message."""
+    """Creates a larger raw RGB image used to encode a message."""
     new_image = Image.new(mode="RGBA", size=(3, 3))
     new_image.format = "PNG"
 
@@ -249,6 +249,7 @@ def raw_coded_larger_rgb_png():
     return new_image
 
 
+# Sample abstract pixels used for testing:
 @pytest.fixture
 def barely_red_pixel():
     """Creates a pixel that is barely an acceptable shade of red."""

@@ -10,7 +10,7 @@ from stegonosaurus import stegoexceptions as se
 @pytest.fixture
 def raw_image_rgb_png():
     """Creates a raw RGB image used to hide a message in."""
-    new_image = Image.new(mode="RGB", size=(2,2))
+    new_image = Image.new(mode="RGB", size=(2, 2))
     new_image.format = "PNG"
 
     new_image.putpixel((0, 0), (0, 255, 255))
@@ -24,7 +24,7 @@ def raw_image_rgb_png():
 @pytest.fixture
 def raw_image_rgba_png():
     """Creates a raw RGBA .png image used to hide a message in."""
-    new_image = Image.new(mode="RGBA", size=(2,2))
+    new_image = Image.new(mode="RGBA", size=(2, 2))
     new_image.format = "PNG"
 
     new_image.putpixel((0, 0), (0, 255, 255, 255))
@@ -37,8 +37,8 @@ def raw_image_rgba_png():
 
 @pytest.fixture
 def raw_image_l_png():
-    """Creates a raw RGBA .png image used to hide a message in."""
-    new_image = Image.new(mode="L", size=(2,2))
+    """Creates a raw single band .png image used to hide a message in."""
+    new_image = Image.new(mode="L", size=(2, 2))
     new_image.format = "PNG"
 
     new_image.putpixel((0, 0), 0)
@@ -52,27 +52,13 @@ def raw_image_l_png():
 @pytest.fixture
 def raw_image_rgb_jpeg():
     """Creates a raw RGB .jpeg image used to hide a message in."""
-    new_image = Image.new(mode="RGB", size=(2,2))
+    new_image = Image.new(mode="RGB", size=(2, 2))
     new_image.format = "JPG"
 
     new_image.putpixel((0, 0), (0, 255, 255))
     new_image.putpixel((0, 1), (0, 255, 255))
     new_image.putpixel((1, 0), (0, 255, 255))
     new_image.putpixel((1, 1), (0, 255, 255))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_image_rgba_jpeg():
-    """Creates a raw RGBA .jpeg image used to hide a message in."""
-    new_image = Image.new(mode="RGBA", size=(2,2))
-    new_image.format = "JPG"
-
-    new_image.putpixel((0, 0), (0, 255, 255, 255))
-    new_image.putpixel((0, 1), (0, 255, 255, 255))
-    new_image.putpixel((1, 0), (0, 255, 255, 255))
-    new_image.putpixel((1, 1), (0, 255, 255, 255))
 
     return new_image
 
@@ -118,8 +104,8 @@ def raw_coded_smaller_rgb_png():
 
 @pytest.fixture
 def raw_coded_larger_x_rgb_png():
-    """Creates a raw RGBA image used to encode a message."""
-    new_image = Image.new(mode="RGBA", size=(3,2))
+    """Creates a horizontally larger raw RGB image used to encode a message."""
+    new_image = Image.new(mode="RGBA", size=(3, 2))
     new_image.format = "PNG"
 
     new_image.putpixel((0, 0), (255, 0, 0))
@@ -134,8 +120,8 @@ def raw_coded_larger_x_rgb_png():
 
 @pytest.fixture
 def raw_coded_larger_y_rgb_png():
-    """Creates a raw RGBA image used to encode a message."""
-    new_image = Image.new(mode="RGBA", size=(2,3))
+    """Creates a vertically larger raw RGB image used to encode a message."""
+    new_image = Image.new(mode="RGBA", size=(2, 3))
     new_image.format = "PNG"
 
     new_image.putpixel((0, 0), (255, 0, 0))
@@ -150,8 +136,8 @@ def raw_coded_larger_y_rgb_png():
 
 @pytest.fixture
 def raw_coded_larger_rgb_png():
-    """Creates a raw RGBA image used to encode a message."""
-    new_image = Image.new(mode="RGBA", size=(3,3))
+    """Creates a larger raw RGB image used to encode a message."""
+    new_image = Image.new(mode="RGBA", size=(3, 3))
     new_image.format = "PNG"
 
     new_image.putpixel((0, 0), (255, 0, 0))
@@ -187,7 +173,7 @@ def test_inspect_invalid_format(raw_image_rgb_jpeg):
 
 
 def test_inspect_invalid_mode(raw_image_l_png):
-    """Test inspection of an invalid L .png image."""
+    """Test inspection of an invalid single band .png image."""
     assert sf.inspect(raw_image_l_png) == ("0000\n" +
                                             "Filename: \nFormat: PNG" +
                                             "\nMode: L\nSize: 2x2\nValid: No")
@@ -224,7 +210,7 @@ def test_black_invalid_rgb_jpeg(raw_image_rgb_jpeg):
 
 
 def test_black_invalid_l_png(raw_image_l_png):
-    """Tests blackenning of an invalid RGB .png image."""
+    """Tests blackenning of an invalid single band .png image."""
     with pytest.raises(se.StegonosaurusIncorrectFormatError):
         sf.blacken(raw_image_l_png)
 
@@ -371,14 +357,14 @@ def test_decode_invalid_rgb_jpeg(raw_image_rgb_jpeg):
 
 
 def test_decode_invalid_l_png(raw_image_l_png):
-    """Tests decoding an invalid L .png image."""
+    """Tests decoding an invalid single band .png image."""
     with pytest.raises(se.StegonosaurusIncorrectFormatError):
         sf.decode(raw_image_l_png, "t")
 
 
 def test_decode_valid_rgb_png_invalid_string_mode(raw_coded_rgb_png, raw_image_rgb_png):
-    """Tests decoding on a valid RGB .png image, with lower case
-    transparent mode.
+    """Tests decoding on a valid RGB .png image, with an invalid 
+    decode mode.
     """
     encoded = sf.encode(raw_coded_rgb_png, raw_image_rgb_png)
     encoded.format = "PNG"
@@ -389,8 +375,8 @@ def test_decode_valid_rgb_png_invalid_string_mode(raw_coded_rgb_png, raw_image_r
 
 
 def test_decode_valid_rgb_png_invalid_nonstring_mode(raw_coded_rgb_png, raw_image_rgb_png):
-    """Tests decoding on a valid RGB .png image, with lower case
-    transparent mode.
+    """Tests decoding on a valid RGB .png image, with an invalid
+    non string decode mode.
     """
     encoded = sf.encode(raw_coded_rgb_png, raw_image_rgb_png)
     encoded.format = "PNG"
@@ -485,7 +471,7 @@ def test_encode_invalid_rgb_image_jpeg(raw_coded_rgb_png, raw_image_rgb_jpeg):
 
 
 def test_encode_invalid_l_coded_png(raw_image_l_png, raw_image_rgb_png):
-    """Tests encoding an invalid L .png image into an valid RGB .png
+    """Tests encoding an invalid single band .png image into an valid RGB .png
     image.
     """
     with pytest.raises(se.StegonosaurusIncorrectFormatError):
@@ -493,7 +479,7 @@ def test_encode_invalid_l_coded_png(raw_image_l_png, raw_image_rgb_png):
 
 
 def test_encode_invalid_l_image_png(raw_coded_rgb_png, raw_image_l_png):
-    """Tests encoding an invalid L .png image into an valid RGB .png
+    """Tests encoding an invalid single band .png image into an valid RGB .png
     image.
     """
     with pytest.raises(se.StegonosaurusIncorrectFormatError):
