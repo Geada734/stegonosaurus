@@ -63,8 +63,6 @@ def raw_image_rgb_jpeg():
     return new_image
 
 
-
-
 @pytest.fixture
 def raw_coded_rgb_bright_red_png():
     """Creates a raw RGB image used to encode a message in bright red."""
@@ -170,6 +168,118 @@ def raw_coded_rgba_not_really_red_png():
     new_image.format = "PNG"
 
     new_image.putpixel((0, 0), (54, 0, 0, 255))
+    new_image.putpixel((0, 1), (0, 1, 1, 255))
+    new_image.putpixel((1, 0), (0, 1, 1, 255))
+    new_image.putpixel((1, 1), (0, 1, 1, 255))
+
+    return new_image
+
+
+@pytest.fixture
+def raw_coded_rgb_bright_green_png():
+    """Creates a raw RGB image used to encode a message in bright green."""
+    new_image = Image.new(mode="RGB", size=(2, 2))
+    new_image.format = "PNG"
+
+    new_image.putpixel((0, 0), (0, 255, 0))
+    new_image.putpixel((0, 1), (0, 1, 1))
+    new_image.putpixel((1, 0), (0, 1, 1))
+    new_image.putpixel((1, 1), (0, 1, 1))
+
+    return new_image
+
+
+@pytest.fixture
+def raw_coded_rgba_bright_green_png():
+    """Creates a raw RGBA image used to encode a message in bright green."""
+    new_image = Image.new(mode="RGBA", size=(2,2))
+    new_image.format = "PNG"
+
+    new_image.putpixel((0, 0), (0, 255, 0, 255))
+    new_image.putpixel((0, 1), (0, 1, 1, 255))
+    new_image.putpixel((1, 0), (0, 1, 1, 255))
+    new_image.putpixel((1, 1), (0, 1, 1, 255))
+
+    return new_image
+
+
+@pytest.fixture
+def raw_coded_rgb_definitely_green_png():
+    """Creates a raw RGB image used to encode a message in clearly green."""
+    new_image = Image.new(mode="RGB", size=(2, 2))
+    new_image.format = "PNG"
+
+    new_image.putpixel((0, 0), (0, 100, 0))
+    new_image.putpixel((0, 1), (0, 1, 1))
+    new_image.putpixel((1, 0), (0, 1, 1))
+    new_image.putpixel((1, 1), (0, 1, 1))
+
+    return new_image
+
+
+@pytest.fixture
+def raw_coded_rgba_definitely_green_png():
+    """Creates a raw RGBA image used to encode a message in clearly green."""
+    new_image = Image.new(mode="RGBA", size=(2,2))
+    new_image.format = "PNG"
+
+    new_image.putpixel((0, 0), (0, 100, 0, 255))
+    new_image.putpixel((0, 1), (0, 1, 1, 255))
+    new_image.putpixel((1, 0), (0, 1, 1, 255))
+    new_image.putpixel((1, 1), (0, 1, 1, 255))
+
+    return new_image
+
+
+@pytest.fixture
+def raw_coded_rgb_barely_green_png():
+    """Creates a raw RGB image used to encode a message in dark green."""
+    new_image = Image.new(mode="RGB", size=(2, 2))
+    new_image.format = "PNG"
+
+    new_image.putpixel((0, 0), (0, 55, 0))
+    new_image.putpixel((0, 1), (0, 1, 1))
+    new_image.putpixel((1, 0), (0, 1, 1))
+    new_image.putpixel((1, 1), (0, 1, 1))
+
+    return new_image
+
+
+@pytest.fixture
+def raw_coded_rgba_barely_green_png():
+    """Creates a raw RGBA image used to encode a message in dark green."""
+    new_image = Image.new(mode="RGBA", size=(2,2))
+    new_image.format = "PNG"
+
+    new_image.putpixel((0, 0), (0, 55, 0, 255))
+    new_image.putpixel((0, 1), (0, 1, 1, 255))
+    new_image.putpixel((1, 0), (0, 1, 1, 255))
+    new_image.putpixel((1, 1), (0, 1, 1, 255))
+
+    return new_image
+
+
+@pytest.fixture
+def raw_coded_rgb_not_really_green_png():
+    """Creates a raw RGB image used to encode a message in unacceptable color."""
+    new_image = Image.new(mode="RGB", size=(2, 2))
+    new_image.format = "PNG"
+
+    new_image.putpixel((0, 0), (0, 54, 0))
+    new_image.putpixel((0, 1), (0, 1, 1))
+    new_image.putpixel((1, 0), (0, 1, 1))
+    new_image.putpixel((1, 1), (0, 1, 1))
+
+    return new_image
+
+
+@pytest.fixture
+def raw_coded_rgba_not_really_green_png():
+    """Creates a raw RGBA image used to encode a message in unacceptable color."""
+    new_image = Image.new(mode="RGBA", size=(2,2))
+    new_image.format = "PNG"
+
+    new_image.putpixel((0, 0), (0, 54, 0, 255))
     new_image.putpixel((0, 1), (0, 1, 1, 255))
     new_image.putpixel((1, 0), (0, 1, 1, 255))
     new_image.putpixel((1, 1), (0, 1, 1, 255))
@@ -460,7 +570,8 @@ def test_decode_valid_rgb_png_invalid_string_mode(raw_coded_rgb_bright_red_png, 
         sf.decode(encoded, "CAKE")
 
 
-def test_decode_valid_rgb_png_invalid_nonstring_mode(raw_coded_rgb_bright_red_png, raw_image_rgb_png):
+def test_decode_valid_rgb_png_invalid_nonstring_mode(raw_coded_rgb_bright_red_png,
+                                                    raw_image_rgb_png):
     """Tests decoding on a valid RGB .png image, with an invalid
     non string decode mode.
     """
@@ -576,6 +687,118 @@ def test_encode_not_realy_red_rgba_png(raw_coded_rgba_not_really_red_png, raw_im
     message in an invalid shade of red.
     """
     new_image = sf.encode(raw_coded_rgba_not_really_red_png, raw_image_rgba_png)
+    data = []
+
+    for i in su.image_reader(new_image):
+        data.append(i)
+
+    assert data == ["(0, 255, 254, 255)", "(0, 255, 254, 255)",
+                    "(0, 255, 254, 255)", "(0, 255, 254, 255)"]
+
+
+def test_encode_bright_green_rgb_png(raw_coded_rgb_bright_green_png, raw_image_rgb_png):
+    """Tests encoding both valid RGB .png images, with a valid 
+    message in bright green.
+    """
+    new_image = sf.encode(raw_coded_rgb_bright_green_png, raw_image_rgb_png)
+    data = []
+
+    for i in su.image_reader(new_image):
+        data.append(i)
+
+    assert data == ["(0, 255, 255)", "(0, 255, 254)",
+                    "(0, 255, 254)", "(0, 255, 254)"]
+
+
+def test_encode_bright_green_rgba_png(raw_coded_rgba_bright_green_png, raw_image_rgba_png):
+    """Tests encoding both valid RGBA .png images, with a valid 
+    message in bright green.
+    """
+    new_image = sf.encode(raw_coded_rgba_bright_green_png, raw_image_rgba_png)
+    data = []
+
+    for i in su.image_reader(new_image):
+        data.append(i)
+
+    assert data == ["(0, 255, 255, 255)", "(0, 255, 254, 255)",
+                    "(0, 255, 254, 255)", "(0, 255, 254, 255)"]
+
+
+def test_encode_definitely_green_rgb_png(raw_coded_rgb_definitely_green_png, raw_image_rgb_png):
+    """Tests encoding both valid RGB .png images, with a valid 
+    message in a color that is clearly green.
+    """
+    new_image = sf.encode(raw_coded_rgb_definitely_green_png, raw_image_rgb_png)
+    data = []
+
+    for i in su.image_reader(new_image):
+        data.append(i)
+
+    assert data == ["(0, 255, 255)", "(0, 255, 254)",
+                    "(0, 255, 254)", "(0, 255, 254)"]
+
+
+def test_encode_definitely_green_rgba_png(raw_coded_rgba_definitely_green_png, raw_image_rgba_png):
+    """Tests encoding both valid RGBA .png images, with a valid 
+    message in a color that is clearly green.
+    """
+    new_image = sf.encode(raw_coded_rgba_definitely_green_png, raw_image_rgba_png)
+    data = []
+
+    for i in su.image_reader(new_image):
+        data.append(i)
+
+    assert data == ["(0, 255, 255, 255)", "(0, 255, 254, 255)",
+                    "(0, 255, 254, 255)", "(0, 255, 254, 255)"]
+
+
+def test_encode_barely_green_rgb_png(raw_coded_rgb_barely_green_png, raw_image_rgb_png):
+    """Tests encoding both valid RGB .png images, with a valid 
+    message in a color that is barely green.
+    """
+    new_image = sf.encode(raw_coded_rgb_barely_green_png, raw_image_rgb_png)
+    data = []
+
+    for i in su.image_reader(new_image):
+        data.append(i)
+
+    assert data == ["(0, 255, 255)", "(0, 255, 254)",
+                    "(0, 255, 254)", "(0, 255, 254)"]
+
+
+def test_encode_barely_green_rgba_png(raw_coded_rgba_barely_green_png, raw_image_rgba_png):
+    """Tests encoding both valid RGBA .png images, with a valid 
+    message in a color that is barely green.
+    """
+    new_image = sf.encode(raw_coded_rgba_barely_green_png, raw_image_rgba_png)
+    data = []
+
+    for i in su.image_reader(new_image):
+        data.append(i)
+
+    assert data == ["(0, 255, 255, 255)", "(0, 255, 254, 255)",
+                    "(0, 255, 254, 255)", "(0, 255, 254, 255)"]
+
+
+def test_encode_not_really_green_rgb_png(raw_coded_rgb_not_really_green_png, raw_image_rgb_png):
+    """Tests encoding both valid RGB .png images, with a valid 
+    message in an invalid shade of green.
+    """
+    new_image = sf.encode(raw_coded_rgb_not_really_green_png, raw_image_rgb_png)
+    data = []
+
+    for i in su.image_reader(new_image):
+        data.append(i)
+
+    assert data == ["(0, 255, 254)", "(0, 255, 254)",
+                    "(0, 255, 254)", "(0, 255, 254)"]
+
+
+def test_encode_not_realy_green_rgba_png(raw_coded_rgba_not_really_green_png, raw_image_rgba_png):
+    """Tests encoding both valid RGBA .png images, with a valid 
+    message in an invalid shade of green.
+    """
+    new_image = sf.encode(raw_coded_rgba_not_really_green_png, raw_image_rgba_png)
     data = []
 
     for i in su.image_reader(new_image):
