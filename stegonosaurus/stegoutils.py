@@ -102,6 +102,7 @@ def flatten_coded(img: Image) -> Image:
     # them black, and enhancing the message pixels.
     for pix_x in range(0, width):
         for pix_y in range(0, height):
+            # Validates the RGB values for each pixel.
             pixel_colors = list(img.getpixel((pix_x, pix_y)))[:3]
             if is_colored(pixel_colors):
                 new_img.putpixel((pix_x, pix_y), (255, 0, 0, 255))
