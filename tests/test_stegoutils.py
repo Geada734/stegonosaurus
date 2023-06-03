@@ -1,337 +1,5 @@
 """Test the utils for the Stegonosaurus library"""
-import pytest
-from PIL import Image
 from stegonosaurus import stegoutils as su
-
-
-# Sample abstract images used for testing:
-@pytest.fixture
-def raw_image_rgb_png():
-    """Creates a raw RGB image used to hide a message in."""
-    new_image = Image.new(mode="RGB", size=(2, 2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (0, 255, 255))
-    new_image.putpixel((0, 1), (0, 255, 255))
-    new_image.putpixel((1, 0), (0, 255, 255))
-    new_image.putpixel((1, 1), (0, 255, 255))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_image_rgba_png():
-    """Creates a raw RGBA .png image used to hide a message in."""
-    new_image = Image.new(mode="RGBA", size=(2, 2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (0, 255, 255, 255))
-    new_image.putpixel((0, 1), (0, 255, 255, 255))
-    new_image.putpixel((1, 0), (0, 255, 255, 255))
-    new_image.putpixel((1, 1), (0, 255, 255, 255))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_image_l_png():
-    """Creates a raw single band .png image used to hide a message in."""
-    new_image = Image.new(mode="L", size=(2, 2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), 0)
-    new_image.putpixel((0, 1), 0)
-    new_image.putpixel((1, 0), 0)
-    new_image.putpixel((1, 1), 0)
-
-    return new_image
-
-
-@pytest.fixture
-def raw_image_rgb_jpeg():
-    """Creates a raw RGB .jpeg image used to hide a message in."""
-    new_image = Image.new(mode="RGB", size=(2, 2))
-    new_image.format = "JPG"
-
-    new_image.putpixel((0, 0), (0, 255, 255))
-    new_image.putpixel((0, 1), (0, 255, 255))
-    new_image.putpixel((1, 0), (0, 255, 255))
-    new_image.putpixel((1, 1), (0, 255, 255))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_image_rgba_jpeg():
-    """Creates a raw RGBA .jpeg image used to hide a message in."""
-    new_image = Image.new(mode="RGBA", size=(2,2))
-    new_image.format = "JPG"
-
-    new_image.putpixel((0, 0), (0, 255, 255, 255))
-    new_image.putpixel((0, 1), (0, 255, 255, 255))
-    new_image.putpixel((1, 0), (0, 255, 255, 255))
-    new_image.putpixel((1, 1), (0, 255, 255, 255))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_coded_rgb_bright_png():
-    """Creates a raw RGB image used to encode a message in bright red."""
-    new_image = Image.new(mode="RGB", size=(2, 2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (255, 0, 0))
-    new_image.putpixel((0, 1), (0, 1, 1))
-    new_image.putpixel((1, 0), (0, 1, 1))
-    new_image.putpixel((1, 1), (0, 1, 1))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_coded_rgba_bright_png():
-    """Creates a raw RGBA image used to encode a message in bright red."""
-    new_image = Image.new(mode="RGBA", size=(2,2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (255, 0, 0, 255))
-    new_image.putpixel((0, 1), (0, 1, 1, 255))
-    new_image.putpixel((1, 0), (0, 1, 1, 255))
-    new_image.putpixel((1, 1), (0, 1, 1, 255))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_coded_rgb_definitely_png():
-    """Creates a raw RGB image used to encode a message in clearly red."""
-    new_image = Image.new(mode="RGB", size=(2, 2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (100, 0, 0))
-    new_image.putpixel((0, 1), (0, 1, 1))
-    new_image.putpixel((1, 0), (0, 1, 1))
-    new_image.putpixel((1, 1), (0, 1, 1))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_coded_rgba_definitely_png():
-    """Creates a raw RGBA image used to encode a message in clearly red."""
-    new_image = Image.new(mode="RGBA", size=(2,2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (100, 0, 0, 255))
-    new_image.putpixel((0, 1), (0, 1, 1, 255))
-    new_image.putpixel((1, 0), (0, 1, 1, 255))
-    new_image.putpixel((1, 1), (0, 1, 1, 255))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_coded_rgb_barely_png():
-    """Creates a raw RGB image used to encode a message in dark red."""
-    new_image = Image.new(mode="RGB", size=(2, 2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (55, 0, 0))
-    new_image.putpixel((0, 1), (0, 1, 1))
-    new_image.putpixel((1, 0), (0, 1, 1))
-    new_image.putpixel((1, 1), (0, 1, 1))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_coded_rgba_barely_png():
-    """Creates a raw RGBA image used to encode a message in dark red."""
-    new_image = Image.new(mode="RGBA", size=(2,2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (55, 0, 0, 255))
-    new_image.putpixel((0, 1), (0, 1, 1, 255))
-    new_image.putpixel((1, 0), (0, 1, 1, 255))
-    new_image.putpixel((1, 1), (0, 1, 1, 255))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_coded_rgb_not_really_png():
-    """Creates a raw RGB image used to encode a message in unacceptable color."""
-    new_image = Image.new(mode="RGB", size=(2, 2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (54, 0, 0))
-    new_image.putpixel((0, 1), (0, 1, 1))
-    new_image.putpixel((1, 0), (0, 1, 1))
-    new_image.putpixel((1, 1), (0, 1, 1))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_coded_rgba_not_really_png():
-    """Creates a raw RGBA image used to encode a message in unacceptable color."""
-    new_image = Image.new(mode="RGBA", size=(2,2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (54, 0, 0, 255))
-    new_image.putpixel((0, 1), (0, 1, 1, 255))
-    new_image.putpixel((1, 0), (0, 1, 1, 255))
-    new_image.putpixel((1, 1), (0, 1, 1, 255))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_coded_smaller_rgb_png():
-    """Creates a small raw RGB image used to encode a message."""
-    new_image = Image.new(mode="RGB", size=(2,2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (255, 0, 0))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_coded_larger_x_rgb_png():
-    """Creates a horizontally larger raw RGB image used to encode a message."""
-    new_image = Image.new(mode="RGBA", size=(3, 2))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (255, 0, 0))
-    new_image.putpixel((0, 1), (0, 1, 1))
-    new_image.putpixel((1, 0), (0, 1, 1))
-    new_image.putpixel((1, 1), (0, 1, 1))
-    new_image.putpixel((2, 0), (0, 1, 1))
-    new_image.putpixel((2, 1), (0, 1, 1))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_coded_larger_y_rgb_png():
-    """Creates a vertically larger raw RGB image used to encode a message."""
-    new_image = Image.new(mode="RGBA", size=(2, 3))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (255, 0, 0))
-    new_image.putpixel((0, 1), (0, 1, 1))
-    new_image.putpixel((0, 2), (0, 1, 1))
-    new_image.putpixel((1, 0), (0, 1, 1))
-    new_image.putpixel((1, 1), (0, 1, 1))
-    new_image.putpixel((1, 2), (0, 1, 1))
-
-    return new_image
-
-
-@pytest.fixture
-def raw_coded_larger_rgb_png():
-    """Creates a larger raw RGB image used to encode a message."""
-    new_image = Image.new(mode="RGBA", size=(3, 3))
-    new_image.format = "PNG"
-
-    new_image.putpixel((0, 0), (255, 0, 0))
-    new_image.putpixel((0, 1), (0, 1, 1))
-    new_image.putpixel((0, 2), (0, 1, 1))
-    new_image.putpixel((1, 0), (0, 1, 1))
-    new_image.putpixel((1, 1), (0, 1, 1))
-    new_image.putpixel((1, 2), (0, 1, 1))
-    new_image.putpixel((2, 0), (0, 1, 1))
-    new_image.putpixel((2, 1), (0, 1, 1))
-    new_image.putpixel((2, 2), (0, 1, 1))
-
-    return new_image
-
-
-# Sample abstract pixels used for testing:
-@pytest.fixture
-def barely_red_pixel():
-    """Creates a pixel that is barely an acceptable shade of red."""
-    return [55, 0, 0]
-
-
-@pytest.fixture
-def definitely_red_pixel():
-    """Creates a pixel that is definitely an acceptable shade of red."""
-    return [100, 0, 0]
-
-
-@pytest.fixture
-def bright_red_pixel():
-    """Creates a pixel that is a bright shade of red."""
-    return [255, 0, 0]
-
-
-@pytest.fixture
-def not_really_red_pixel():
-    """Creates a pixel that is too dark to encode."""
-    return [54, 0,0]
-
-
-@pytest.fixture
-def barely_green_pixel():
-    """Creates a pixel that is barely an acceptable shade of green."""
-    return [0, 55, 0]
-
-
-@pytest.fixture
-def definitely_green_pixel():
-    """Creates a pixel that is definitely an acceptable shade of green."""
-    return [0, 100, 0]
-
-
-@pytest.fixture
-def bright_green_pixel():
-    """Creates a pixel that is a bright shade of green."""
-    return [0, 255, 0]
-
-
-@pytest.fixture
-def not_really_green_pixel():
-    """Creates a pixel that is too dark to encode."""
-    return [0, 54,0]
-
-
-@pytest.fixture
-def barely_blue_pixel():
-    """Creates a pixel that is barely an acceptable shade of blue."""
-    return [0, 0, 55]
-
-
-@pytest.fixture
-def definitely_blue_pixel():
-    """Creates a pixel that is definitely an acceptable shade of blue."""
-    return [0, 0, 100]
-
-
-@pytest.fixture
-def bright_blue_pixel():
-    """Creates a pixel that is a bright shade of blue."""
-    return [0, 0, 255]
-
-
-@pytest.fixture
-def not_really_blue_pixel():
-    """Creates a pixel that is too dark to encode."""
-    return [0, 0, 54]
-
-
-@pytest.fixture
-def soft_black_pixel():
-    """Creates a barely non encodable pixel."""
-    return [54, 54, 54]
-
-
-@pytest.fixture
-def hard_black_pixel():
-    """Creates a black pixel."""
-    return [0, 0, 0]
 
 
 # Image reader tests:
@@ -375,9 +43,9 @@ def test_validate_format_jpeg_rgba(raw_image_rgba_jpeg):
 
 
 # Size validation tests:
-def test_same_size_images(raw_coded_rgb_bright_png, raw_image_rgb_png):
+def test_same_size_images(raw_coded_rgb_bright_red_png, raw_image_rgb_png):
     """Test the validation of same size .png RGB images."""
-    assert su.validate_images_size(raw_coded_rgb_bright_png, raw_image_rgb_png)
+    assert su.validate_images_size(raw_coded_rgb_bright_red_png, raw_image_rgb_png)
 
 
 def test_smaller_coded_image(raw_coded_smaller_rgb_png, raw_image_rgb_png):
@@ -460,9 +128,9 @@ def test_flatten_rgba_image(raw_image_rgba_png):
                     "(0, 255, 254, 255)", "(0, 255, 254, 255)"]
 
 
-def test_flatten_code_rgb_bright_image(raw_coded_rgb_bright_png):
+def test_flatten_code_rgb_bright_image(raw_coded_rgb_bright_red_png):
     """Tests the falettening of an RGB .png coded image with bright text."""
-    flat_coded = su.flatten_coded(raw_coded_rgb_bright_png)
+    flat_coded = su.flatten_coded(raw_coded_rgb_bright_red_png)
     data = []
 
     for i in su.image_reader(flat_coded):
@@ -471,9 +139,9 @@ def test_flatten_code_rgb_bright_image(raw_coded_rgb_bright_png):
     assert data == ["(255, 0, 0)", "(0, 0, 0)", "(0, 0, 0)", "(0, 0, 0)"]
 
 
-def test_flatten_code_rgba_bright_image(raw_coded_rgba_bright_png):
+def test_flatten_code_rgba_bright_image(raw_coded_rgba_bright_red_png):
     """Tests the falettening of an RGBA .png coded image with bright text."""
-    flat_coded = su.flatten_coded(raw_coded_rgba_bright_png)
+    flat_coded = su.flatten_coded(raw_coded_rgba_bright_red_png)
     data = []
 
     for i in su.image_reader(flat_coded):
@@ -483,9 +151,9 @@ def test_flatten_code_rgba_bright_image(raw_coded_rgba_bright_png):
                     "(0, 0, 0, 255)", "(0, 0, 0, 255)"]
 
 
-def test_flatten_code_rgb_barely_image(raw_coded_rgb_barely_png):
+def test_flatten_code_rgb_barely_image(raw_coded_rgb_barely_red_png):
     """Tests the falettening of an RGB .png coded image with dark acceptable text."""
-    flat_coded = su.flatten_coded(raw_coded_rgb_barely_png)
+    flat_coded = su.flatten_coded(raw_coded_rgb_barely_red_png)
     data = []
 
     for i in su.image_reader(flat_coded):
@@ -494,9 +162,9 @@ def test_flatten_code_rgb_barely_image(raw_coded_rgb_barely_png):
     assert data == ["(255, 0, 0)", "(0, 0, 0)", "(0, 0, 0)", "(0, 0, 0)"]
 
 
-def test_flatten_code_rgba_barely_image(raw_coded_rgba_barely_png):
+def test_flatten_code_rgba_barely_image(raw_coded_rgba_barely_red_png):
     """Tests the falettening of an RGBA .png coded image with dark acceptable text."""
-    flat_coded = su.flatten_coded(raw_coded_rgba_barely_png)
+    flat_coded = su.flatten_coded(raw_coded_rgba_barely_red_png)
     data = []
 
     for i in su.image_reader(flat_coded):
@@ -506,9 +174,9 @@ def test_flatten_code_rgba_barely_image(raw_coded_rgba_barely_png):
                     "(0, 0, 0, 255)", "(0, 0, 0, 255)"]
 
 
-def test_flatten_code_rgb_definitely_image(raw_coded_rgb_definitely_png):
+def test_flatten_code_rgb_definitely_image(raw_coded_rgb_definitely_red_png):
     """Tests the falettening of an RGB .png coded image with clearly colored text."""
-    flat_coded = su.flatten_coded(raw_coded_rgb_definitely_png)
+    flat_coded = su.flatten_coded(raw_coded_rgb_definitely_red_png)
     data = []
 
     for i in su.image_reader(flat_coded):
@@ -517,9 +185,9 @@ def test_flatten_code_rgb_definitely_image(raw_coded_rgb_definitely_png):
     assert data == ["(255, 0, 0)", "(0, 0, 0)", "(0, 0, 0)", "(0, 0, 0)"]
 
 
-def test_flatten_code_rgba_definitely_image(raw_coded_rgba_definitely_png):
+def test_flatten_code_rgba_definitely_image(raw_coded_rgba_definitely_red_png):
     """Tests the falettening of an RGBA .png coded image with clearly colored text."""
-    flat_coded = su.flatten_coded(raw_coded_rgba_definitely_png)
+    flat_coded = su.flatten_coded(raw_coded_rgba_definitely_red_png)
     data = []
 
     for i in su.image_reader(flat_coded):
@@ -529,9 +197,9 @@ def test_flatten_code_rgba_definitely_image(raw_coded_rgba_definitely_png):
                     "(0, 0, 0, 255)", "(0, 0, 0, 255)"]
 
 
-def test_flatten_code_rgb_not_really_image(raw_coded_rgb_not_really_png):
+def test_flatten_code_rgb_not_really_image(raw_coded_rgb_not_really_red_png):
     """Tests the falettening of an RGB .png coded image with non encodable text."""
-    flat_coded = su.flatten_coded(raw_coded_rgb_not_really_png)
+    flat_coded = su.flatten_coded(raw_coded_rgb_not_really_red_png)
     data = []
 
     for i in su.image_reader(flat_coded):
@@ -540,9 +208,9 @@ def test_flatten_code_rgb_not_really_image(raw_coded_rgb_not_really_png):
     assert data == ["(0, 0, 0)", "(0, 0, 0)", "(0, 0, 0)", "(0, 0, 0)"]
 
 
-def test_flatten_code_rgba_not_really_image(raw_coded_rgba_not_really_png):
+def test_flatten_code_rgba_not_really_image(raw_coded_rgba_not_really_red_png):
     """Tests the falettening of an RGBA .png coded image with non encodable text."""
-    flat_coded = su.flatten_coded(raw_coded_rgba_not_really_png)
+    flat_coded = su.flatten_coded(raw_coded_rgba_not_really_red_png)
     data = []
 
     for i in su.image_reader(flat_coded):
