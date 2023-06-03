@@ -1,8 +1,8 @@
 """Test the functions in the Stegonosaurus library."""
 import pytest
-from stegonosaurus import stegofunctions as sf
-from stegonosaurus import stegoutils as su
-from stegonosaurus import stegoexceptions as se
+from src import stegofunctions as sf
+from src import stegoutils as su
+from src import stegoexceptions as se
 
 
 # Image inspection tests:

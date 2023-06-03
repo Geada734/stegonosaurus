@@ -1,5 +1,5 @@
 """Test the utils for the Stegonosaurus library"""
-from stegonosaurus import stegoutils as su
+from src import stegoutils as su
 
 
 # Image reader tests:
