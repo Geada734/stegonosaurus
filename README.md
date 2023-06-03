@@ -39,3 +39,4 @@ Decodes an image with a hidden message. This functions looks for pixels where th
 - StegonosaurusInvalidDecodeModeError (Ver. 1.1.3): 
 
   Raised when an invalid decode mode is provided.
+
