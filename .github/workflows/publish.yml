@@ -15,7 +15,7 @@ steps:
     uses: actions/setup-python@v4
     with:
       python-version: "3.x"    
-  - name: Build a binary wheel and a source tarball
+  - name: Build a binary wheel
     run: >-
       python3 setup.py bdist_wheel
   - name: Publish distribution to PyPI
