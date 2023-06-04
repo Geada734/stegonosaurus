@@ -14,6 +14,7 @@ setup(
     version='1.2.1',
     description='Stegonography utilities',
     long_description=open('README.md').read(),
+    long_description_content_type='text/markdown',
     author='Geada734',
     license='MIT',
     classifiers=classifiers,
