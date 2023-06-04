@@ -1,6 +1,6 @@
 # stegonosaurus
 
-*Ver 1.2.0*
+*Ver 1.2.2*
 
 Steganography functions packed in a convenient wheel. This library helps encode and decode messages into and out of multi-band .png images. Works with the [Image](https://pillow.readthedocs.io/en/stable/reference/Image.html) module of the Pillow library.
 
