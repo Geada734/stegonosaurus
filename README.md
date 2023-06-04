@@ -7,7 +7,13 @@ Steganography functions packed in a convenient wheel. This library helps encode 
 ## Requirements
 - Python3
 
-## Functions:
+## Installing
+
+A simple pip install will do:
+
+`pip install stegonosaurus`
+
+## Functions
 
 ### inspect:
 
@@ -28,7 +34,7 @@ Decodes an image with a hidden message. This functions looks for pixels where th
 -B,b (for "black"): pixels with an even blue value are colored black, displaying the message in red letters on a black background.
 -T,t (for "transparent"): pixels with an odd blue value are colored red, the other pixels remain the same so the message can be displayed on top of the original image.
 
-**Exceptions:**
+### Exceptions:
 
 - StegonosaurusIncorrectFormatError: 
 
