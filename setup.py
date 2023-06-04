@@ -11,7 +11,7 @@ classifiers = [
 setup(
     name='stegonosaurus',
     packages=find_packages(include=["stegonosaurus"]),
-    version='1.2.1',
+    version='1.2.2',
     description='Stegonography utilities',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
